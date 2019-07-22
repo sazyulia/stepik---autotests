@@ -1,20 +1,10 @@
 import pytest
-from selenium import webdriver
-
+from selenium.webdriver.common.by import By
 import time
-#import math
 
-link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-@pytest.fixture(scope='function')
-def browser():
-    print('\nstart browser for test..')
-    browser = webdriver.Chrome()
-    browser.implicitly_wait(5)
-    yield browser
-    print('\nquit browser..')
-    browser.quit()
+link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/'
 
-def test_links(browser):
-    browser.get(f'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/')
-    result=browser.find_element_by_css_selector('button.btn.btn-lg.btn-primary.btn-add-to-basket').text
-    assert result == 'Добавить в корзину', "message is not 'Добавить в корзину'"
+def test_add_item_button_exists(browser):
+	browser.get(link)
+	add_item_button = browser.find_element(By.CSS_SELECTOR, 'button.btn.btn-lg.btn-primary.btn-add-to-basket')
+	assert add_item_button != None, "Button is not exist"
